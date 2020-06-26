@@ -28,7 +28,7 @@ To work in a sandboxed Python environment it is recommended to install the app i
    $ docker-compose -f docker-compose.yml up -d --build
    ```      
    
-5. Running test-cases
+5. Running test-cases while server is running
 
    ```bash
    $ pytest
