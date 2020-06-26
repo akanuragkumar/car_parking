@@ -15,8 +15,9 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.views.decorators.csrf import csrf_exempt
-
 from park import views as park_views
+
+handler403 = 'park.views.my_custom_multi_request_view'
 
 urlpatterns = [
     url(r'^unpark', csrf_exempt(park_views.un_park)),

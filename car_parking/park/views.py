@@ -1,3 +1,4 @@
+from ratelimit.decorators import ratelimit
 from django.http import JsonResponse
 import json
 
@@ -28,6 +29,7 @@ class Parking:
 parking = Parking(ranger)
 
 
+@ratelimit(key='ip', rate='10/10s', block=True)
 def add_car(request):
     """This Endpoint takes the car number as input and outputs the slot
 where it is parked."""
@@ -47,6 +49,7 @@ where it is parked."""
         return JsonResponse({'slot': slot, 'car_number': car_number})
 
 
+@ratelimit(key='ip', rate='10/10s', block=True)
 def un_park(request):
     """This endpoint takes the slot number from which the car is to be removed
 from and frees that slot up."""
@@ -64,6 +67,7 @@ from and frees that slot up."""
         return JsonResponse({'Success': 'Car removed!'})
 
 
+@ratelimit(key='ip', rate='10/10s', block=True)
 def get_car(request):
     """This endpoint takes either slot number or car
 number and return both the car number and slot number."""
@@ -83,3 +87,7 @@ number and return both the car number and slot number."""
             return JsonResponse({'slot': slot, 'car_number': car_number})
     else:
         return JsonResponse({'Error': 'Missing or wrong parameter!'}, status=400)
+
+
+def my_custom_multi_request_view(request, exception):
+    return JsonResponse({'Error': 'Too many requests, Please try after some time!'}, status=403)
