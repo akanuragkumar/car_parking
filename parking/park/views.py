@@ -20,6 +20,15 @@ def add_car(request):
         return JsonResponse({'slot': slot, 'car_number': car_number, 'car_to_slot': car_to_slot, 'slots': slots})
 
 
+def un_park(request):
+    if request.method == 'POST':
+        payload = json.loads(request.body)
+        slot = payload.get('slot')
+        for key, value in car_to_slot.items():
+            if value == slot:
+                del car_to_slot[key]
+                break
+        return JsonResponse({'Success': 'Car removed!', 'car_to_slot': car_to_slot, 'slots': slots})
 
 
 
