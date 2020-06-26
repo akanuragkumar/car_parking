@@ -19,6 +19,7 @@ from django.views.decorators.csrf import csrf_exempt
 from park import views as park_views
 
 urlpatterns = [
+    url(r'^unpark', csrf_exempt(park_views.un_park)),
     url(r'^slots', csrf_exempt(park_views.add_car)),
     url(r'^getslots/$', park_views.get_car, name='car_number')
 ]
