@@ -31,5 +31,13 @@ def un_park(request):
         return JsonResponse({'Success': 'Car removed!', 'car_to_slot': car_to_slot, 'slots': slots})
 
 
-
+def get_car(request):
+    if request.GET.get('car_number'):
+        car_number = request.GET.get('car_number')
+        car_slot = car_to_slot[car_number]
+        return JsonResponse({'slot': car_slot, 'car_number': car_number})
+    elif request.GET.get('slot'):
+        slot = request.GET.get('slot')
+        car_number = slots[slot]
+        return JsonResponse({'slot': slot, 'car_number': car_number,'car_to_slot': car_to_slot, 'slots': slots})
 
